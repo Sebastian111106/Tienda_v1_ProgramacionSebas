@@ -30,5 +30,26 @@ public class CategoriaService {
         }
         return lista;
     }
+    @Transactional
+    public void save(Categoria categoria){
+        categoriaRepository.save(categoria);
+    }
+    
+        @Transactional 
+    public boolean delete(Categoria categoria){ 
+        try{
+            categoriaRepository.delete(categoria);
+            categoriaRepository.flush(); 
+            return true;
+        } catch (Exception e){ 
+            return false;
+        }
+    }
+    
+    @Transactional(readOnly = true)
+    public Categoria getCategoria(Categoria categoria){
+        return categoriaRepository.findById(categoria.getIdCategoria()).orElse(null);
+    }
+    
 
 }
